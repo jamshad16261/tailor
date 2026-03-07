@@ -28,7 +28,7 @@ class Admin extends CI_Controller
         $role = $this->input->post('role');
 
         $modules = $this->m->getModules();
-        $allowed = $this->m->getRolePermissions($role); // array of permission IDs
+        $allowed = $this->m->getRolePermissions($role);
 
         echo '<div class="row g-3">';
 

@@ -10,11 +10,19 @@
   <div class="navbar-wrapper">
     <div class="m-header">
       <a href="<?php echo base_url('Home') ?>" class="b-brand text-primary d-flex align-items-center">
-        <?php $company = $this->session->userdata('company'); ?>
-        <img src="<?php echo base_url('assets/images/logo/asaanbiz.png') ?>"
-          alt="user-image" width="70" height="70" class="user-avtar rounded-circle">
-        <h5 class="mb-0 me-2 mt-3"><?php echo $company ?></h5>
-      </a>
+    <?php 
+        $company = $this->session->userdata('company') ?? ''; 
+        $logo = $this->session->userdata('logo') ?? '';
+        // Set logo path: if user uploaded logo use that, otherwise fallback
+        $logo_path = !empty($logo) ? base_url('assets/images/logo/'.$logo) : base_url('assets/images/logo/asaanbiz.png');
+    ?>
+    <img src="<?= $logo_path ?>" 
+         alt="user-logo" 
+         width="70" height="70" 
+         class="user-avtar rounded-circle"
+          style="width: 40px; height: 40px; object-fit: cover;">
+    <h5 class="mb-0 me-2 mt-3"><?= $company ?></h5>
+</a>
     </div>
 
     <div class="navbar-content">

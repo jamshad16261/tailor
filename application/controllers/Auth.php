@@ -78,6 +78,7 @@ class Auth extends CI_Controller
                 'business_id' => $user->business_id,
                 'email'   => $user->email,
                 'name'   => $user->name,
+                'logo'       => $user->logo ?? '',
                 'role'   => $user->role,
                 'logged_in' => TRUE
             ]);
