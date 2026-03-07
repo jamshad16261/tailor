@@ -2,7 +2,7 @@
     <div class="pc-content">
 
         <div class="page-header mb-4">
-            <h4 class="text-dark"><?= $page_title ?></h4>
+            <h4 class="text-primary"><?= $page_title ?></h4>
         </div>
 
         <div class="card shadow-sm">
