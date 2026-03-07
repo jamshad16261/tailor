@@ -40,31 +40,44 @@ public function update_profile()
     $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim');
 
     if ($this->form_validation->run() == FALSE) {
-        $errors = validation_errors();
-        $this->session->set_flashdata('error', $errors);
+        $this->session->set_flashdata('error', validation_errors());
     } else {
         $user_id = $this->session->userdata('user_id');
 
+        // Current user data
+        $user = $this->Account_model->get_user($user_id);
+
         $data = [
-            'name' => $this->input->post('name', true),
+            'name'  => $this->input->post('name', true),
             'email' => $this->input->post('email', true),
             'phone' => $this->input->post('phone', true),
         ];
 
         // IMAGE UPLOAD
         if (!empty($_FILES['logo']['name'])) {
-            $config['upload_path'] = './assets/images/logo/';
+
+            $config['upload_path']   = './assets/images/logo/';
             $config['allowed_types'] = 'jpg|jpeg|png|gif';
-            $config['max_size'] = 2048;
-            $config['file_name'] = time();
+            $config['max_size']      = 2048;
+            $config['file_name']     = time();
 
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('logo')) {
                 $uploadData = $this->upload->data();
                 $data['logo'] = $uploadData['file_name'];
-                // SESSION UPDATE
+
+                // Remove old logo if exists and is not default
+                if (!empty($user->logo) && $user->logo != 'asaanbiz.png') {
+                    $old_logo_path = './assets/images/logo/' . $user->logo;
+                    if (file_exists($old_logo_path)) {
+                        unlink($old_logo_path); // Delete old logo
+                    }
+                }
+
+                // Update session
                 $this->session->set_userdata('logo', $uploadData['file_name']);
+
             } else {
                 $this->session->set_flashdata('error', $this->upload->display_errors());
                 redirect('account');
@@ -72,15 +85,8 @@ public function update_profile()
             }
         }
 
-        // DB UPDATE
+        // Update user
         $this->Account_model->update_profile($user_id, $data);
-
-        // UPDATE SESSION FIRST NAME / LAST NAME
-        $this->session->set_userdata([
-            'first_name' => $data['name'], // ya agar alag first/last field ho to split karo
-            'last_name' => '',             // agar separate last_name field ho to yahan use karo
-        ]);
-
         $this->session->set_flashdata('success', 'Profile updated successfully.');
     }
 

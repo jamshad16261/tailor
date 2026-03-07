@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/tailor/';
+$config['base_url'] = 'https://asaanbiz.com/tailor';
 
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
 
