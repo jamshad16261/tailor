@@ -1,0 +1,14 @@
+deployment:
+  tasks:
+    # Set deployment path (update USERNAME aur project folder)
+    - export DEPLOYPATH=/home/asaanbiz/public_html/tailor
+
+    # Copy all project files to deployment directory
+    - /bin/cp -R . $DEPLOYPATH
+
+    # Optional: Remove .git folder from live (safe)
+    - /bin/rm -rf $DEPLOYPATH/.git
+
+    # Optional: Set permissions for cache & logs (CodeIgniter specific)
+    - /bin/chmod -R 755 $DEPLOYPATH/application/cache
+    - /bin/chmod -R 755 $DEPLOYPATH/application/logs
