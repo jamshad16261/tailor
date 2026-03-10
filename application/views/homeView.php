@@ -137,7 +137,7 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="card shadow-sm h-100">
                             <div class="card-body py-2 text-center">
-                                <i class="ti ti-users text-primary fs-5 mb-1"></i>
+                                <i class="ti ti-users text-success fs-5 mb-1"></i>
                                 <h6 class="mb-0 fw-semibold"><?php echo $totalCustomers; ?></h6>
                                 <small class="text-muted d-block">Customers</small>
                             </div>
