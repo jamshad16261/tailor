@@ -259,41 +259,63 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 col-xl-4 mt-3">
-                    <h5 class="mb-3">Transaction History</h5>
-                    <div class="card">
-                        <div class="list-group list-group-flush">
+                <?php
+                $business_id = $_SESSION['business_id'];
 
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex">
-                                    <!-- LEFT ICON -->
-                                    <div class="flex-shrink-0">
-                                        <div class="avtar avtar-s rounded-circle ">
-                                            <i class="f-18"></i>
+                $query = $this->db->query("
+                SELECT id, amount, method, remarks, entry_date
+                FROM payments
+                 WHERE business_id = $business_id
+                 AND is_deleted = 0
+                ORDER BY id DESC
+                LIMIT 8
+                ");
+
+                $transactions = $query->result();
+                ?>
+                <?php if (!empty($transactions)) { ?>
+                    <?php foreach ($transactions as $row) { ?>
+                        <div class="col-md-12 col-xl-4 mt-3">
+                            <h5 class="mb-3">Transaction History</h5>
+                            <div class="card">
+                                <div class="list-group list-group-flush">
+
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <!-- LEFT ICON -->
+                                            <div class="flex-shrink-0">
+                                                <div class="avtar avtar-s rounded-circle ">
+                                                    <i class="f-18"></i>
+                                                </div>
+                                            </div>
+
+                                            <!-- MID TEXT -->
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6 class="mb-1"><?php echo $row->id; ?></h6>
+                                                <p class="mb-0 text-muted"><?php echo $row->entry_date; ?></p>
+                                            </div>
+
+                                            <!-- RIGHT AMOUNTS -->
+                                            <div class="flex-shrink-0 text-end">
+                                                <small class="text-muted">Dr: </small>
+                                                <h6 class="mb-0 text-danger d-inline"><?php echo number_format($row->amount); ?></h6><br>
+                                                <small class="text-muted">Cr: </small>
+                                                <h6 class="mb-0 text-success d-inline"><?php echo number_format($row->amount); ?></h6>
+                                                <p class="mb-0 text-muted mt-1"><strong style="color: black;">Type: </strong> <?php echo $row->method; ?></p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
+                                <?php } ?>
+                            <?php } else { ?>
 
-                                    <!-- MID TEXT -->
-                                    <div class="flex-grow-1 ms-3">
-                                        <h6 class="mb-1">100</h6>
-                                        <p class="mb-0 text-muted">2025-10-09</p>
-                                    </div>
-
-                                    <!-- RIGHT AMOUNTS -->
-                                    <div class="flex-shrink-0 text-end">
-                                        <small class="text-muted">Dr: </small>
-                                        <h6 class="mb-0 text-danger d-inline">300</h6><br>
-                                        <small class="text-muted">Cr: </small>
-                                        <h6 class="mb-0 text-success d-inline">500</h6>
-                                        <p class="mb-0 text-muted mt-1"><strong style="color: black;">Type: </strong>Remarks</p>
-                                    </div>
+                                <div class="p-3 text-center">
+                                    No Transaction Found
                                 </div>
-                            </a>
 
-
+                            <?php } ?>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
 
             </div>
