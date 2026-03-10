@@ -35,7 +35,128 @@
             padding: 4px 6px !important;
             font-size: 12px !important;
         }
-    </style>
+    /* Hide Google Translate top bar completely */
+    .goog-te-banner-frame.skiptranslate,
+    iframe.goog-te-banner-frame,
+    .VIpgJd-ZVi9od-ORHb-OEVmcd,
+    .VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+    #goog-gt-tt,
+    .goog-te-balloon-frame {
+        display: none !important;
+    }
+    
+    body {
+        top: 0px !important;
+        position: static !important;
+    }
+    
+    /* Remove any Google Translate tooltips */
+    .goog-text-highlight {
+        background: none !important;
+        box-shadow: none !important;
+    }
+    
+    .goog-tooltip {
+        display: none !important;
+    }
+    
+    .goog-tooltip:hover {
+        display: none !important;
+    }
+    
+    /* Style the Google Translate dropdown */
+    .google-translate-container {
+        display: inline-block;
+        width: 130px;
+        margin: 0 10px;
+    }
+    
+    .google-translate-container select {
+        width: 100%;
+        padding: 6px 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        background-color: #fff;
+        font-size: 13px;
+        cursor: pointer;
+        outline: none;
+    }
+    
+    .google-translate-container select:hover {
+        border-color: #2196f3;
+    }
+    
+    .goog-te-gadget {
+        font-family: inherit !important;
+        color: transparent !important;
+    }
+    
+    .goog-te-gadget .goog-te-combo {
+        width: 100%;
+        padding: 6px 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        background-color: #fff;
+        font-size: 13px;
+        cursor: pointer;
+        outline: none;
+        margin: 0 !important;
+    }
+    
+    .goog-te-gadget .goog-te-combo:hover {
+        border-color: #2196f3;
+    }
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+body {
+    top: 0 !important;
+    position: static !important;
+}
+
+/* Hide Google icon inside dropdown */
+.goog-te-gadget img {
+    display: none !important;
+}
+
+/* Style dropdown */
+.google-translate-container select {
+    width: 140px;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Hover effect */
+.google-translate-container select:hover {
+    border-color: #2196f3;
+}
+
+/* Mobile fix */
+@media (max-width: 768px) {
+    .google-translate-container select {
+        width: 120px;
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+}
+
+    /* Fix for mobile */
+    @media (max-width: 768px) {
+        .google-translate-container {
+            width: 100px;
+        }
+        
+        .goog-te-gadget .goog-te-combo {
+            font-size: 11px;
+            padding: 4px 6px;
+        }
+    }
+</style>
 
     <!-- CSS for better alignment and design -->
     <!--<style>-->
@@ -154,6 +275,9 @@
         <!-- [Mobile Media Block end] -->
         <div class="ms-auto">
             <ul class="list-unstyled">
+                <li class="pc-h-item">
+                    <div id="google_translate_element" class="google-translate-container"></div>
+                </li>
                 <li class="dropdown pc-h-item">
                     <a
                         class="pc-head-link dropdown-toggle arrow-none me-0"
@@ -343,3 +467,54 @@
     </div>
 </header>
 <!-- [ Header ] end -->
+
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,ur,hi',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+    }, 'google_translate_element');
+
+    // Wait for the select to appear and rename options
+    const container = document.getElementById('google_translate_element');
+
+    const observer = new MutationObserver(() => {
+        const combo = container.querySelector('select');
+        if (combo) {
+            for (let i = 0; i < combo.options.length; i++) {
+                switch(combo.options[i].value) {
+                    case 'en': combo.options[i].text = 'English'; break;
+                    case 'ur': combo.options[i].text = 'Urdu'; break;
+                    case 'hi': combo.options[i].text = 'Hindi'; break;
+                }
+                combo.options[i].text = combo.options[i].text.replace(/›\s*/g, '');
+            }
+
+            // **Do NOT override combo.value** — keep user selection
+            observer.disconnect(); // stop observing
+        }
+    });
+
+    observer.observe(container, { childList: true, subtree: true });
+}
+
+// Remove Google bar completely
+function removeGoogleBarAndFix() {
+    const googleBar = document.querySelector('.goog-te-banner-frame.skiptranslate');
+    if (googleBar) googleBar.remove();
+
+    const googleTooltip = document.getElementById('goog-gt-tt');
+    if (googleTooltip) googleTooltip.remove();
+
+    document.body.style.top = '0px';
+    document.body.style.position = 'static';
+}
+
+// Ensure bar is removed on page load
+window.onload = removeGoogleBarAndFix;
+</script>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

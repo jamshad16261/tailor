@@ -34,10 +34,10 @@
                 <div class="row">
                     <!-- Pending Orders -->
                     <?php
-                        $business_id = $_SESSION['business_id']; // ya jahan se milta ho
-                        $query = $this->db->query("SELECT COUNT(id) as pendingOrder FROM orders WHERE business_id = $business_id AND is_deleted = 0 AND status = 'pending' ");
-                        $result = $query->row();
-                        $totalPendingOrders = $result->pendingOrder ?? 0;
+                    $business_id = $_SESSION['business_id']; // ya jahan se milta ho
+                    $query = $this->db->query("SELECT COUNT(id) as pendingOrder FROM orders WHERE business_id = $business_id AND is_deleted = 0 AND status = 'pending' ");
+                    $result = $query->row();
+                    $totalPendingOrders = $result->pendingOrder ?? 0;
                     ?>
 
                     <div class="col-md-6 col-xl-3">
@@ -45,7 +45,7 @@
                             <div class="card-body">
                                 <h6 class="mb-2 f-w-400 text-muted">Pending Orders</h6>
                                 <h4 class="mb-3">
-                                    <?php echo $totalPendingOrders;?>
+                                    <?php echo $totalPendingOrders; ?>
                                     <span class="badge bg-light-danger border border-danger">
                                         <i class="ti ti-clock"></i> Due
                                     </span>
@@ -57,10 +57,10 @@
 
                     <!-- Completed Orders -->
                     <?php
-                        $business_id = $_SESSION['business_id']; // ya jahan se milta ho
-                        $query = $this->db->query("SELECT COUNT(id) as paidOrder FROM orders WHERE business_id = $business_id AND is_deleted = 0 AND status = 'paid' ");
-                        $result = $query->row();
-                        $totalPaidOrder = $result->paidOrder ?? 0;
+                    $business_id = $_SESSION['business_id']; // ya jahan se milta ho
+                    $query = $this->db->query("SELECT COUNT(id) as paidOrder FROM orders WHERE business_id = $business_id AND is_deleted = 0 AND status = 'paid' ");
+                    $result = $query->row();
+                    $totalPaidOrder = $result->paidOrder ?? 0;
                     ?>
 
                     <div class="col-md-6 col-xl-3">
@@ -68,7 +68,7 @@
                             <div class="card-body">
                                 <h6 class="mb-2 f-w-400 text-muted">Completed Orders</h6>
                                 <h4 class="mb-3">
-                                   <?php echo $totalPaidOrder;?>
+                                    <?php echo $totalPaidOrder; ?>
                                     <span class="badge bg-light-success border border-success">
                                         <i class="ti ti-check"></i>
                                     </span>
@@ -80,18 +80,18 @@
 
                     <!-- Today's Deliveries -->
                     <?php
-                        $business_id = $_SESSION['business_id']; // ya jahan se milta ho
-                        $query = $this->db->query("SELECT COUNT(id) as todayDeliveries FROM orders WHERE business_id = $business_id 
+                    $business_id = $_SESSION['business_id']; // ya jahan se milta ho
+                    $query = $this->db->query("SELECT COUNT(id) as todayDeliveries FROM orders WHERE business_id = $business_id 
                         AND is_deleted = 0 and status = 'delivered' AND DATE(delivery_date) = CURDATE() ");
-                        $result = $query->row();
-                        $todayDeliveries = $result->todayDeliveries ?? 0;
+                    $result = $query->row();
+                    $todayDeliveries = $result->todayDeliveries ?? 0;
                     ?>
                     <div class="col-md-6 col-xl-3">
                         <div class="card">
                             <div class="card-body">
                                 <h6 class="mb-2 f-w-400 text-muted">Today's Deliveries</h6>
                                 <h4 class="mb-3">
-                                    <?php echo $todayDeliveries;?>
+                                    <?php echo $todayDeliveries; ?>
                                     <span class="badge bg-light-primary border border-primary">
                                         <i class="ti ti-truck-delivery"></i> Today
                                     </span>
@@ -103,18 +103,18 @@
 
                     <!-- Total Expense -->
                     <?php
-                        $business_id = $_SESSION['business_id'];
-                        $query = $this->db->query("SELECT SUM(amount) as totalExpense FROM expenses WHERE business_id = $business_id 
+                    $business_id = $_SESSION['business_id'];
+                    $query = $this->db->query("SELECT SUM(amount) as totalExpense FROM expenses WHERE business_id = $business_id 
                         AND is_deleted = 0");
-                        $result = $query->row();
-                        $totalExpense = $result->totalExpense ?? 0;
+                    $result = $query->row();
+                    $totalExpense = $result->totalExpense ?? 0;
                     ?>
                     <div class="col-md-6 col-xl-3">
                         <div class="card">
                             <div class="card-body">
                                 <h6 class="mb-2 f-w-400 text-muted">Total Expense</h6>
                                 <h4 class="mb-3">
-                                    <?php echo $totalExpense;?>
+                                    <?php echo $totalExpense; ?>
                                     <span class="badge bg-light-warning border border-warning">
                                         <i class="ti ti-cash"></i> Pending
                                     </span>
@@ -128,34 +128,34 @@
                 <!-- ======= Bottom Small Cards Row ======= -->
                 <div class="row mt-3">
                     <?php
-                        $business_id = $_SESSION['business_id']; // ya jahan se milta ho
-                        $query = $this->db->query("SELECT COUNT(id) as totalCustomers FROM customers WHERE business_id = $business_id AND is_deleted = 0");
-                        $result = $query->row();
-                        $totalCustomers = $result->totalCustomers ?? 0;
+                    $business_id = $_SESSION['business_id']; // ya jahan se milta ho
+                    $query = $this->db->query("SELECT COUNT(id) as totalCustomers FROM customers WHERE business_id = $business_id AND is_deleted = 0");
+                    $result = $query->row();
+                    $totalCustomers = $result->totalCustomers ?? 0;
                     ?>
 
                     <div class="col-md-3 col-sm-6">
                         <div class="card shadow-sm h-100">
                             <div class="card-body py-2 text-center">
                                 <i class="ti ti-users text-primary fs-5 mb-1"></i>
-                                <h6 class="mb-0 fw-semibold"><?php echo $totalCustomers;?></h6>
+                                <h6 class="mb-0 fw-semibold"><?php echo $totalCustomers; ?></h6>
                                 <small class="text-muted d-block">Customers</small>
                             </div>
                         </div>
                     </div>
                     <!-- Total Orders -->
                     <?php
-                        $business_id = $_SESSION['business_id'];
-                        $query = $this->db->query("SELECT COUNT(id) as totalOrders FROM orders WHERE business_id = $business_id AND is_deleted = 0");
-                        $result = $query->row();
-                        $totalOrders = $result->totalOrders ?? 0;
+                    $business_id = $_SESSION['business_id'];
+                    $query = $this->db->query("SELECT COUNT(id) as totalOrders FROM orders WHERE business_id = $business_id AND is_deleted = 0");
+                    $result = $query->row();
+                    $totalOrders = $result->totalOrders ?? 0;
                     ?>
 
                     <div class="col-md-3 col-sm-6">
                         <div class="card shadow-sm h-100">
                             <div class="card-body py-2 text-center">
                                 <i class="ti ti-scissors text-success fs-5 mb-1"></i>
-                                <h6 class="mb-0 fw-semibold"><?php echo $totalOrders;?></h6>
+                                <h6 class="mb-0 fw-semibold"><?php echo $totalOrders; ?></h6>
                                 <small class="text-muted d-block">Total Orders</small>
                             </div>
                         </div>
@@ -173,10 +173,10 @@
 
                     <!-- Total Earnings -->
                     <?php
-                        $business_id = $_SESSION['business_id'];
-                        $query = $this->db->query("SELECT SUM(amount) as totalEarning FROM payments WHERE business_id = $business_id AND is_deleted = 0");
-                        $result = $query->row();
-                        $totalEarning = $result->totalEarning ?? 0;
+                    $business_id = $_SESSION['business_id'];
+                    $query = $this->db->query("SELECT SUM(amount) as totalEarning FROM payments WHERE business_id = $business_id AND is_deleted = 0");
+                    $result = $query->row();
+                    $totalEarning = $result->totalEarning ?? 0;
                     ?>
 
                     <div class="col-md-3 col-sm-6">
@@ -184,12 +184,32 @@
                             <div class="card-body py-2 text-center">
                                 <i class="fas fa-money-bill-wave text-warning fs-5"></i>
 
-                                <h6 class="mb-0 fw-semibold"><?php echo $totalEarning;?></h6>
+                                <h6 class="mb-0 fw-semibold"><?php echo $totalEarning; ?></h6>
                                 <small class="text-muted d-block">Total Earnings</small>
                             </div>
                         </div>
                     </div>
                 </div>
+                <?php
+                $business_id = $_SESSION['business_id'];
+
+                $query = $this->db->query("
+                SELECT 
+                o.order_no,
+                o.order_date,
+                o.total_amount,
+                o.status,
+                c.name as customer_name
+                FROM orders o
+                LEFT JOIN customers c ON c.id = o.customer_id
+                WHERE o.business_id = $business_id 
+                AND o.is_deleted = 0
+                ORDER BY o.id DESC
+                 LIMIT 8
+                 ");
+
+                $orders = $query->result();
+                ?>
                 <div class="col-md-12 col-xl-8 mt-3">
                     <h5 class="mb-3">Recent Vouchers</h5>
                     <div class="card tbl-card">
@@ -206,72 +226,39 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>#1001</td>
-                                            <td><span class="badge bg-light-primary">Stitching</span></td>
-                                            <td>Ali Khan</td>
-                                            <td>09-Oct-2025</td>
-                                            <td class="text-end fw-semibold">PKR 3,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#1002</td>
-                                            <td><span class="badge bg-light-success">Advance</span></td>
-                                            <td>Ahmed Tailors</td>
-                                            <td>09-Oct-2025</td>
-                                            <td class="text-end fw-semibold">PKR 2,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#1003</td>
-                                            <td><span class="badge bg-light-warning">Expense</span></td>
-                                            <td>Cloth Purchase</td>
-                                            <td>08-Oct-2025</td>
-                                            <td class="text-end fw-semibold text-danger">PKR 1,200</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#1004</td>
-                                            <td><span class="badge bg-light-info">Delivered</span></td>
-                                            <td>Usman Raza</td>
-                                            <td>08-Oct-2025</td>
-                                            <td class="text-end fw-semibold">PKR 4,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#1005</td>
-                                            <td><span class="badge bg-light-primary">Stitching</span></td>
-                                            <td>Bilal Ahmed</td>
-                                            <td>07-Oct-2025</td>
-                                            <td class="text-end fw-semibold">PKR 6,200</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#1006</td>
-                                            <td><span class="badge bg-light-success">Advance</span></td>
-                                            <td>Sara Khan</td>
-                                            <td>07-Oct-2025</td>
-                                            <td class="text-end fw-semibold">PKR 3,700</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#1007</td>
-                                            <td><span class="badge bg-light-warning">Expense</span></td>
-                                            <td>Thread & Buttons</td>
-                                            <td>06-Oct-2025</td>
-                                            <td class="text-end fw-semibold text-danger">PKR 950</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#1008</td>
-                                            <td><span class="badge bg-light-info">Delivered</span></td>
-                                            <td>Hassan Ali</td>
-                                            <td>06-Oct-2025</td>
-                                            <td class="text-end fw-semibold">PKR 5,400</td>
-                                        </tr>
+                                        <?php if (!empty($orders)) { ?>
+                                            <?php foreach ($orders as $row) { ?>
+
+                                                <tr>
+                                                    <td>#<?php echo $row->order_no; ?></td>
+
+                                                    <td>
+                                                        <span class="badge bg-light-primary">
+                                                            <?php echo ucfirst($row->status); ?>
+                                                        </span>
+                                                    </td>
+
+                                                    <td><?php echo $row->customer_name; ?></td>
+
+                                                    <td><?php echo date('d-M-Y', strtotime($row->order_date)); ?></td>
+
+                                                    <td class="text-end fw-semibold">
+                                                        PKR <?php echo number_format($row->total_amount); ?>
+                                                    </td>
+                                                </tr>
+
+                                            <?php } ?>
+                                        <?php } else { ?>
+                                            <tr>
+                                                <td colspan="5" class="text-center">No Orders Found</td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
-
                 <div class="col-md-12 col-xl-4 mt-3">
                     <h5 class="mb-3">Transaction History</h5>
                     <div class="card">

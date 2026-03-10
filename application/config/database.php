@@ -76,10 +76,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	  'hostname' => (ENVIRONMENT === 'development') ? 'localhost' : 'llocalhost',
-    'username' => (ENVIRONMENT === 'development') ? 'root' : 'asaanbiz',
-    'password' => (ENVIRONMENT === 'development') ? '' : 'L9q56iNT:a!3wY',
-    'database' => (ENVIRONMENT === 'development') ? 'asaanbiz_tailor' : 'asaanbiz_tailor',
+	  'hostname' => 'localhost',
+    'username' => 'root',
+    'password' => '',
+    'database' => 'asaanbiz_tailor',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
