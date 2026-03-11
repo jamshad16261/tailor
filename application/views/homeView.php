@@ -275,7 +275,7 @@
                 WHERE p.business_id = $business_id 
                 AND p.is_deleted = 0
                 ORDER BY p.id DESC
-                LIMIT 8
+                LIMIT 3
                 ");
                 $payments = $query->result();
                 ?>
